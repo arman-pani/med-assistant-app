@@ -58,7 +58,7 @@ final class DownloadNotifierProvider
   }
 }
 
-String _$downloadNotifierHash() => r'41b19e42adc9c5bd3be4b097d6f0d2c96719268e';
+String _$downloadNotifierHash() => r'17170b00aac2e8431842c44d079214b7a14c71d0';
 
 final class DownloadNotifierFamily extends $Family
     with

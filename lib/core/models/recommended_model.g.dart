@@ -17,6 +17,10 @@ _RecommendedModel _$RecommendedModelFromJson(Map<String, dynamic> json) =>
       downloadUrl: json['downloadUrl'] as String,
       fileName: json['fileName'] as String,
       ramRequirement: json['ramRequirement'] as String,
+      projectorDownloadUrl: json['projectorDownloadUrl'] as String?,
+      projectorFileName: json['projectorFileName'] as String?,
+      projectorSizeLabel: json['projectorSizeLabel'] as String?,
+      projectorSizeBytes: (json['projectorSizeBytes'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$RecommendedModelToJson(_RecommendedModel instance) =>
@@ -30,4 +34,8 @@ Map<String, dynamic> _$RecommendedModelToJson(_RecommendedModel instance) =>
       'downloadUrl': instance.downloadUrl,
       'fileName': instance.fileName,
       'ramRequirement': instance.ramRequirement,
+      'projectorDownloadUrl': instance.projectorDownloadUrl,
+      'projectorFileName': instance.projectorFileName,
+      'projectorSizeLabel': instance.projectorSizeLabel,
+      'projectorSizeBytes': instance.projectorSizeBytes,
     };

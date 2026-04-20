@@ -12,7 +12,9 @@ abstract class ModelCatalogState with _$ModelCatalogState {
     @Default([]) List<LocalModelEntry> localModels,
     String? loadedModelPath,
     String? loadingModelPath,
+    @Default(true) bool isBootstrapping,
     @Default(false) bool isLoadingModel,
+    @Default(false) bool isUserInitiatedLoad,
     String? errorMessage,
   }) = _ModelCatalogState;
 

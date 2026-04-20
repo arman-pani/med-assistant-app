@@ -13,6 +13,10 @@ _ModelDownloadState _$ModelDownloadStateFromJson(Map<String, dynamic> json) =>
       totalBytes: (json['totalBytes'] as num?)?.toInt() ?? 0,
       isDownloading: json['isDownloading'] as bool? ?? false,
       isDownloaded: json['isDownloaded'] as bool? ?? false,
+      isDownloadingProjector: json['isDownloadingProjector'] as bool? ?? false,
+      projectorProgress: (json['projectorProgress'] as num?)?.toDouble() ?? 0.0,
+      projectorReceivedBytes:
+          (json['projectorReceivedBytes'] as num?)?.toInt() ?? 0,
       error: json['error'] as String?,
     );
 
@@ -23,5 +27,8 @@ Map<String, dynamic> _$ModelDownloadStateToJson(_ModelDownloadState instance) =>
       'totalBytes': instance.totalBytes,
       'isDownloading': instance.isDownloading,
       'isDownloaded': instance.isDownloaded,
+      'isDownloadingProjector': instance.isDownloadingProjector,
+      'projectorProgress': instance.projectorProgress,
+      'projectorReceivedBytes': instance.projectorReceivedBytes,
       'error': instance.error,
     };

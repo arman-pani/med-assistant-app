@@ -46,6 +46,16 @@ dependencies:
   freezed_annotation: ^3.1.0
   json_annotation: ^4.9.0
 
+  image_picker: ^1.1.2          # pick images from gallery/camera
+  speech_to_text: ^7.0.0        # microphone → text (on-device, no cloud)
+  permission_handler: ^11.3.1   # runtime permissions for mic and storage
+  pdf: ^3.11.1                  # generate PDF prescriptions (dart-only, no native)
+  printing: ^5.13.1             # preview and share/print the generated PDF
+  intl: ^0.19.0                 # date formatting for prescriptions
+  go_router: ^14.7.2            # declarative routing
+  hive_ce: ^2.19.3
+  hive_ce_flutter: ^2.3.4
+
 hooks:
   user_defines:
     llamadart:
@@ -71,6 +81,7 @@ dev_dependencies:
   riverpod_generator: ^4.0.3
   freezed: ^3.2.5
   json_serializable: ^6.9.0
+  hive_ce_generator: ^1.11.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

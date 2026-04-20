@@ -14,6 +14,8 @@ _LocalModelEntry _$LocalModelEntryFromJson(Map<String, dynamic> json) =>
       fileSizeLabel: json['fileSizeLabel'] as String?,
       badge: json['badge'] as String?,
       isCustom: json['isCustom'] as bool? ?? false,
+      hasProjector: json['hasProjector'] as bool? ?? false,
+      projectorPath: json['projectorPath'] as String?,
     );
 
 Map<String, dynamic> _$LocalModelEntryToJson(_LocalModelEntry instance) =>
@@ -24,4 +26,6 @@ Map<String, dynamic> _$LocalModelEntryToJson(_LocalModelEntry instance) =>
       'fileSizeLabel': instance.fileSizeLabel,
       'badge': instance.badge,
       'isCustom': instance.isCustom,
+      'hasProjector': instance.hasProjector,
+      'projectorPath': instance.projectorPath,
     };

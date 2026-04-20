@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ModelCatalogState {
 
- List<LocalModelEntry> get localModels; String? get loadedModelPath; String? get loadingModelPath; bool get isLoadingModel; String? get errorMessage;
+ List<LocalModelEntry> get localModels; String? get loadedModelPath; String? get loadingModelPath; bool get isBootstrapping; bool get isLoadingModel; bool get isUserInitiatedLoad; String? get errorMessage;
 /// Create a copy of ModelCatalogState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $ModelCatalogStateCopyWith<ModelCatalogState> get copyWith => _$ModelCatalogStat
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ModelCatalogState&&const DeepCollectionEquality().equals(other.localModels, localModels)&&(identical(other.loadedModelPath, loadedModelPath) || other.loadedModelPath == loadedModelPath)&&(identical(other.loadingModelPath, loadingModelPath) || other.loadingModelPath == loadingModelPath)&&(identical(other.isLoadingModel, isLoadingModel) || other.isLoadingModel == isLoadingModel)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ModelCatalogState&&const DeepCollectionEquality().equals(other.localModels, localModels)&&(identical(other.loadedModelPath, loadedModelPath) || other.loadedModelPath == loadedModelPath)&&(identical(other.loadingModelPath, loadingModelPath) || other.loadingModelPath == loadingModelPath)&&(identical(other.isBootstrapping, isBootstrapping) || other.isBootstrapping == isBootstrapping)&&(identical(other.isLoadingModel, isLoadingModel) || other.isLoadingModel == isLoadingModel)&&(identical(other.isUserInitiatedLoad, isUserInitiatedLoad) || other.isUserInitiatedLoad == isUserInitiatedLoad)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(localModels),loadedModelPath,loadingModelPath,isLoadingModel,errorMessage);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(localModels),loadedModelPath,loadingModelPath,isBootstrapping,isLoadingModel,isUserInitiatedLoad,errorMessage);
 
 @override
 String toString() {
-  return 'ModelCatalogState(localModels: $localModels, loadedModelPath: $loadedModelPath, loadingModelPath: $loadingModelPath, isLoadingModel: $isLoadingModel, errorMessage: $errorMessage)';
+  return 'ModelCatalogState(localModels: $localModels, loadedModelPath: $loadedModelPath, loadingModelPath: $loadingModelPath, isBootstrapping: $isBootstrapping, isLoadingModel: $isLoadingModel, isUserInitiatedLoad: $isUserInitiatedLoad, errorMessage: $errorMessage)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $ModelCatalogStateCopyWith<$Res>  {
   factory $ModelCatalogStateCopyWith(ModelCatalogState value, $Res Function(ModelCatalogState) _then) = _$ModelCatalogStateCopyWithImpl;
 @useResult
 $Res call({
- List<LocalModelEntry> localModels, String? loadedModelPath, String? loadingModelPath, bool isLoadingModel, String? errorMessage
+ List<LocalModelEntry> localModels, String? loadedModelPath, String? loadingModelPath, bool isBootstrapping, bool isLoadingModel, bool isUserInitiatedLoad, String? errorMessage
 });
 
 
@@ -65,12 +65,14 @@ class _$ModelCatalogStateCopyWithImpl<$Res>
 
 /// Create a copy of ModelCatalogState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? localModels = null,Object? loadedModelPath = freezed,Object? loadingModelPath = freezed,Object? isLoadingModel = null,Object? errorMessage = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? localModels = null,Object? loadedModelPath = freezed,Object? loadingModelPath = freezed,Object? isBootstrapping = null,Object? isLoadingModel = null,Object? isUserInitiatedLoad = null,Object? errorMessage = freezed,}) {
   return _then(_self.copyWith(
 localModels: null == localModels ? _self.localModels : localModels // ignore: cast_nullable_to_non_nullable
 as List<LocalModelEntry>,loadedModelPath: freezed == loadedModelPath ? _self.loadedModelPath : loadedModelPath // ignore: cast_nullable_to_non_nullable
 as String?,loadingModelPath: freezed == loadingModelPath ? _self.loadingModelPath : loadingModelPath // ignore: cast_nullable_to_non_nullable
-as String?,isLoadingModel: null == isLoadingModel ? _self.isLoadingModel : isLoadingModel // ignore: cast_nullable_to_non_nullable
+as String?,isBootstrapping: null == isBootstrapping ? _self.isBootstrapping : isBootstrapping // ignore: cast_nullable_to_non_nullable
+as bool,isLoadingModel: null == isLoadingModel ? _self.isLoadingModel : isLoadingModel // ignore: cast_nullable_to_non_nullable
+as bool,isUserInitiatedLoad: null == isUserInitiatedLoad ? _self.isUserInitiatedLoad : isUserInitiatedLoad // ignore: cast_nullable_to_non_nullable
 as bool,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
@@ -157,10 +159,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<LocalModelEntry> localModels,  String? loadedModelPath,  String? loadingModelPath,  bool isLoadingModel,  String? errorMessage)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<LocalModelEntry> localModels,  String? loadedModelPath,  String? loadingModelPath,  bool isBootstrapping,  bool isLoadingModel,  bool isUserInitiatedLoad,  String? errorMessage)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ModelCatalogState() when $default != null:
-return $default(_that.localModels,_that.loadedModelPath,_that.loadingModelPath,_that.isLoadingModel,_that.errorMessage);case _:
+return $default(_that.localModels,_that.loadedModelPath,_that.loadingModelPath,_that.isBootstrapping,_that.isLoadingModel,_that.isUserInitiatedLoad,_that.errorMessage);case _:
   return orElse();
 
 }
@@ -178,10 +180,10 @@ return $default(_that.localModels,_that.loadedModelPath,_that.loadingModelPath,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<LocalModelEntry> localModels,  String? loadedModelPath,  String? loadingModelPath,  bool isLoadingModel,  String? errorMessage)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<LocalModelEntry> localModels,  String? loadedModelPath,  String? loadingModelPath,  bool isBootstrapping,  bool isLoadingModel,  bool isUserInitiatedLoad,  String? errorMessage)  $default,) {final _that = this;
 switch (_that) {
 case _ModelCatalogState():
-return $default(_that.localModels,_that.loadedModelPath,_that.loadingModelPath,_that.isLoadingModel,_that.errorMessage);case _:
+return $default(_that.localModels,_that.loadedModelPath,_that.loadingModelPath,_that.isBootstrapping,_that.isLoadingModel,_that.isUserInitiatedLoad,_that.errorMessage);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -198,10 +200,10 @@ return $default(_that.localModels,_that.loadedModelPath,_that.loadingModelPath,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<LocalModelEntry> localModels,  String? loadedModelPath,  String? loadingModelPath,  bool isLoadingModel,  String? errorMessage)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<LocalModelEntry> localModels,  String? loadedModelPath,  String? loadingModelPath,  bool isBootstrapping,  bool isLoadingModel,  bool isUserInitiatedLoad,  String? errorMessage)?  $default,) {final _that = this;
 switch (_that) {
 case _ModelCatalogState() when $default != null:
-return $default(_that.localModels,_that.loadedModelPath,_that.loadingModelPath,_that.isLoadingModel,_that.errorMessage);case _:
+return $default(_that.localModels,_that.loadedModelPath,_that.loadingModelPath,_that.isBootstrapping,_that.isLoadingModel,_that.isUserInitiatedLoad,_that.errorMessage);case _:
   return null;
 
 }
@@ -213,7 +215,7 @@ return $default(_that.localModels,_that.loadedModelPath,_that.loadingModelPath,_
 @JsonSerializable()
 
 class _ModelCatalogState extends ModelCatalogState {
-  const _ModelCatalogState({final  List<LocalModelEntry> localModels = const [], this.loadedModelPath, this.loadingModelPath, this.isLoadingModel = false, this.errorMessage}): _localModels = localModels,super._();
+  const _ModelCatalogState({final  List<LocalModelEntry> localModels = const [], this.loadedModelPath, this.loadingModelPath, this.isBootstrapping = true, this.isLoadingModel = false, this.isUserInitiatedLoad = false, this.errorMessage}): _localModels = localModels,super._();
   factory _ModelCatalogState.fromJson(Map<String, dynamic> json) => _$ModelCatalogStateFromJson(json);
 
  final  List<LocalModelEntry> _localModels;
@@ -225,7 +227,9 @@ class _ModelCatalogState extends ModelCatalogState {
 
 @override final  String? loadedModelPath;
 @override final  String? loadingModelPath;
+@override@JsonKey() final  bool isBootstrapping;
 @override@JsonKey() final  bool isLoadingModel;
+@override@JsonKey() final  bool isUserInitiatedLoad;
 @override final  String? errorMessage;
 
 /// Create a copy of ModelCatalogState
@@ -241,16 +245,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ModelCatalogState&&const DeepCollectionEquality().equals(other._localModels, _localModels)&&(identical(other.loadedModelPath, loadedModelPath) || other.loadedModelPath == loadedModelPath)&&(identical(other.loadingModelPath, loadingModelPath) || other.loadingModelPath == loadingModelPath)&&(identical(other.isLoadingModel, isLoadingModel) || other.isLoadingModel == isLoadingModel)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ModelCatalogState&&const DeepCollectionEquality().equals(other._localModels, _localModels)&&(identical(other.loadedModelPath, loadedModelPath) || other.loadedModelPath == loadedModelPath)&&(identical(other.loadingModelPath, loadingModelPath) || other.loadingModelPath == loadingModelPath)&&(identical(other.isBootstrapping, isBootstrapping) || other.isBootstrapping == isBootstrapping)&&(identical(other.isLoadingModel, isLoadingModel) || other.isLoadingModel == isLoadingModel)&&(identical(other.isUserInitiatedLoad, isUserInitiatedLoad) || other.isUserInitiatedLoad == isUserInitiatedLoad)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_localModels),loadedModelPath,loadingModelPath,isLoadingModel,errorMessage);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_localModels),loadedModelPath,loadingModelPath,isBootstrapping,isLoadingModel,isUserInitiatedLoad,errorMessage);
 
 @override
 String toString() {
-  return 'ModelCatalogState(localModels: $localModels, loadedModelPath: $loadedModelPath, loadingModelPath: $loadingModelPath, isLoadingModel: $isLoadingModel, errorMessage: $errorMessage)';
+  return 'ModelCatalogState(localModels: $localModels, loadedModelPath: $loadedModelPath, loadingModelPath: $loadingModelPath, isBootstrapping: $isBootstrapping, isLoadingModel: $isLoadingModel, isUserInitiatedLoad: $isUserInitiatedLoad, errorMessage: $errorMessage)';
 }
 
 
@@ -261,7 +265,7 @@ abstract mixin class _$ModelCatalogStateCopyWith<$Res> implements $ModelCatalogS
   factory _$ModelCatalogStateCopyWith(_ModelCatalogState value, $Res Function(_ModelCatalogState) _then) = __$ModelCatalogStateCopyWithImpl;
 @override @useResult
 $Res call({
- List<LocalModelEntry> localModels, String? loadedModelPath, String? loadingModelPath, bool isLoadingModel, String? errorMessage
+ List<LocalModelEntry> localModels, String? loadedModelPath, String? loadingModelPath, bool isBootstrapping, bool isLoadingModel, bool isUserInitiatedLoad, String? errorMessage
 });
 
 
@@ -278,12 +282,14 @@ class __$ModelCatalogStateCopyWithImpl<$Res>
 
 /// Create a copy of ModelCatalogState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? localModels = null,Object? loadedModelPath = freezed,Object? loadingModelPath = freezed,Object? isLoadingModel = null,Object? errorMessage = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? localModels = null,Object? loadedModelPath = freezed,Object? loadingModelPath = freezed,Object? isBootstrapping = null,Object? isLoadingModel = null,Object? isUserInitiatedLoad = null,Object? errorMessage = freezed,}) {
   return _then(_ModelCatalogState(
 localModels: null == localModels ? _self._localModels : localModels // ignore: cast_nullable_to_non_nullable
 as List<LocalModelEntry>,loadedModelPath: freezed == loadedModelPath ? _self.loadedModelPath : loadedModelPath // ignore: cast_nullable_to_non_nullable
 as String?,loadingModelPath: freezed == loadingModelPath ? _self.loadingModelPath : loadingModelPath // ignore: cast_nullable_to_non_nullable
-as String?,isLoadingModel: null == isLoadingModel ? _self.isLoadingModel : isLoadingModel // ignore: cast_nullable_to_non_nullable
+as String?,isBootstrapping: null == isBootstrapping ? _self.isBootstrapping : isBootstrapping // ignore: cast_nullable_to_non_nullable
+as bool,isLoadingModel: null == isLoadingModel ? _self.isLoadingModel : isLoadingModel // ignore: cast_nullable_to_non_nullable
+as bool,isUserInitiatedLoad: null == isUserInitiatedLoad ? _self.isUserInitiatedLoad : isUserInitiatedLoad // ignore: cast_nullable_to_non_nullable
 as bool,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
 as String?,
   ));

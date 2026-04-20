@@ -72,6 +72,41 @@ class DownloadNotifier extends _$DownloadNotifier {
     state = state.copyWith(isDownloaded: false, progress: 0.0);
   }
 
+  Future<void> startProjectorDownload(RecommendedModel model) async {
+    final service = await ref.read(modelDownloadServiceProvider.future);
+    state = state.copyWith(
+      isDownloadingProjector: true,
+      error: null,
+      projectorProgress: 0.0,
+      projectorReceivedBytes: 0,
+    );
+    await service.downloadProjector(
+      model,
+      onProgress: (received, fraction) {
+        state = state.copyWith(
+          projectorProgress: fraction,
+          projectorReceivedBytes: received,
+        );
+      },
+      onComplete: () {
+        state = state.copyWith(
+          isDownloadingProjector: false,
+          projectorProgress: 1.0,
+          projectorReceivedBytes: model.projectorSizeBytes,
+        );
+        ref
+            .read(modelCatalogProvider.notifier)
+            .onCatalogModelDownloaded(model);
+      },
+      onError: (e) {
+        state = state.copyWith(
+          isDownloadingProjector: false,
+          error: e,
+        );
+      },
+    );
+  }
+
   void clearError() {
     state = state.copyWith(error: null);
   }

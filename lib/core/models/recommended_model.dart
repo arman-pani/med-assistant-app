@@ -15,48 +15,16 @@ abstract class RecommendedModel with _$RecommendedModel {
     required String downloadUrl,
     required String fileName,
     required String ramRequirement,
+    String? projectorDownloadUrl,
+    String? projectorFileName,
+    String? projectorSizeLabel,
+    @Default(0) int projectorSizeBytes,
   }) = _RecommendedModel;
 
   factory RecommendedModel.fromJson(Map<String, dynamic> json) =>
       _$RecommendedModelFromJson(json);
 
   static const List<RecommendedModel> catalog = [
-    RecommendedModel(
-      id: 'medgemma-4b-q4km',
-      displayName: 'MedGemma 4B · Q4_K_M',
-      description: 'Best balance of speed and quality. Ideal for most devices.',
-      badge: '⭐ Recommended',
-      fileSizeLabel: '2.5 GB',
-      fileSizeBytes: 2684354560,
-      downloadUrl:
-          'https://huggingface.co/bartowski/google_medgemma-4b-it-GGUF/resolve/main/google_medgemma-4b-it-Q4_K_M.gguf',
-      fileName: 'google_medgemma-4b-it-Q4_K_M.gguf',
-      ramRequirement: '4 GB RAM',
-    ),
-    RecommendedModel(
-      id: 'medgemma-4b-q8',
-      displayName: 'MedGemma 4B · Q8_0',
-      description: 'Highest accuracy 4B quantization. Needs more RAM.',
-      badge: 'High Quality',
-      fileSizeLabel: '4.7 GB',
-      fileSizeBytes: 5046586573,
-      downloadUrl:
-          'https://huggingface.co/bartowski/google_medgemma-4b-it-GGUF/resolve/main/google_medgemma-4b-it-Q8_0.gguf',
-      fileName: 'google_medgemma-4b-it-Q8_0.gguf',
-      ramRequirement: '6 GB RAM',
-    ),
-    RecommendedModel(
-      id: 'medgemma-4b-iq4nl',
-      displayName: 'MedGemma 4B · IQ4_NL',
-      description: 'ARM-optimized 4-bit. Great for mobile and Apple Silicon.',
-      badge: 'Mobile Friendly',
-      fileSizeLabel: '2.4 GB',
-      fileSizeBytes: 2576980378,
-      downloadUrl:
-          'https://huggingface.co/bartowski/google_medgemma-4b-it-GGUF/resolve/main/google_medgemma-4b-it-IQ4_NL.gguf',
-      fileName: 'google_medgemma-4b-it-IQ4_NL.gguf',
-      ramRequirement: '4 GB RAM',
-    ),
     RecommendedModel(
       id: 'medgemma-4b-q4ks',
       displayName: 'MedGemma 4B · Q4_K_S',
@@ -69,6 +37,29 @@ abstract class RecommendedModel with _$RecommendedModel {
           'https://huggingface.co/bartowski/google_medgemma-4b-it-GGUF/resolve/main/google_medgemma-4b-it-Q4_K_S.gguf',
       fileName: 'google_medgemma-4b-it-Q4_K_S.gguf',
       ramRequirement: '3.5 GB RAM',
+      projectorDownloadUrl:
+          'https://huggingface.co/bartowski/google_medgemma-4b-it-GGUF/resolve/main/mmproj-google_medgemma-4b-it-f16.gguf',
+      projectorFileName: 'mmproj-google_medgemma-4b-it-f16.gguf',
+      projectorSizeLabel: '624 MB',
+      projectorSizeBytes: 654311424,
+    ),
+    RecommendedModel(
+      id: 'medgemma-4b-iq2xxs',
+      displayName: 'MedGemma 4B · IQ2_XXS (Unsloth)',
+      description:
+          'Ultra-small quantization for maximum speed and lowest RAM usage.',
+      badge: 'Ultra Low',
+      fileSizeLabel: '1.25 GB',
+      fileSizeBytes: 1344119360,
+      downloadUrl:
+          'https://huggingface.co/unsloth/medgemma-4b-it-GGUF/resolve/main/medgemma-4b-it-UD-IQ2_XXS.gguf',
+      fileName: 'medgemma-4b-it-UD-IQ2_XXS.gguf',
+      ramRequirement: '2 GB RAM',
+      projectorDownloadUrl:
+          'https://huggingface.co/bartowski/google_medgemma-4b-it-GGUF/resolve/main/mmproj-google_medgemma-4b-it-f16.gguf',
+      projectorFileName: 'mmproj-google_medgemma-4b-it-f16.gguf',
+      projectorSizeLabel: '624 MB',
+      projectorSizeBytes: 654311424,
     ),
   ];
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import '../../../core/theme/app_colors.dart';
@@ -26,6 +28,22 @@ class ChatMessageBubble extends StatelessWidget {
             ? CrossAxisAlignment.end
             : CrossAxisAlignment.start,
         children: [
+          if (isUser && message.imagePath != null)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 4, right: 12),
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.file(
+                    File(message.imagePath!),
+                    width: 180,
+                    height: 180,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
           Align(
             alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
             child: Container(

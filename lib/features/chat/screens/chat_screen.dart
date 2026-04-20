@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_text_styles.dart';
+import '../../../core/routing/app_routes.dart';
 import '../providers/chat_provider.dart';
 import '../widgets/chat_input_area.dart';
 import '../widgets/chat_message_list.dart';
-import '../../settings/screens/model_setup_screen.dart';
+import '../../settings/providers/model_catalog_provider.dart';
 
 class ChatScreen extends ConsumerStatefulWidget {
   const ChatScreen({super.key});
@@ -57,10 +59,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           'qualified healthcare professional for medical advice.',
         ),
         actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('OK'),
-          ),
+          TextButton(onPressed: () => context.pop(), child: const Text('OK')),
         ],
       ),
     );
@@ -70,6 +69,12 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   Widget build(BuildContext context) {
     final chatState = ref.watch(chatProvider);
     final chatNotifier = ref.read(chatProvider.notifier);
+    final catalogState = ref.watch(modelCatalogProvider);
+    final isInitializing =
+        catalogState.isBootstrapping ||
+        catalogState.isLoadingModel ||
+        chatState.isModelLoading ||
+        chatState.isProjectorLoading;
 
     ref.listen<ChatState>(chatProvider, (prev, next) {
       if (prev != null && next.messages.length != prev.messages.length) {
@@ -92,7 +97,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
               height: 10,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: chatState.isModelLoaded
+                color: chatState.isModelLoaded && !isInitializing
                     ? AppColors.success
                     : AppColors.textSecondary,
               ),
@@ -101,12 +106,14 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         ),
         actions: [
           IconButton(
+            icon: const Icon(Icons.medical_services_outlined),
+            onPressed: () => context.push(AppRoutes.clinicalVoice),
+            tooltip: 'Clinical Voice Mode',
+          ),
+          IconButton(
             icon: const Icon(Icons.settings_outlined),
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const ModelSetupScreen()),
-            ),
-            tooltip: 'Model Settings',
+            onPressed: () => context.push(AppRoutes.modelSetup),
+            tooltip: 'Model Setup',
           ),
           IconButton(
             icon: const Icon(Icons.refresh_outlined),
@@ -126,14 +133,118 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           child: Column(
             children: [
               const Divider(height: 1, thickness: 0.5),
-              Expanded(
-                child: ChatMessageList(
-                  chatState: chatState,
-                  scrollController: _scrollController,
-                  cursorAnimation: _cursorController,
+              if (chatState.errorMessage != null && !isInitializing)
+                Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.fromLTRB(12, 12, 12, 0),
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: AppColors.error.withValues(alpha: 0.15),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: AppColors.error.withValues(alpha: 0.4),
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.error_outline, color: AppColors.error),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Text(
+                          chatState.errorMessage!,
+                          style: AppTextStyles.bodyMedium,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: chatNotifier.dismissError,
+                        icon: const Icon(
+                          Icons.close,
+                          color: AppColors.textSecondary,
+                        ),
+                        tooltip: 'Dismiss error',
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const ChatInputArea(),
+              if (isInitializing)
+                Expanded(
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const SizedBox(
+                          width: 48,
+                          height: 48,
+                          child: CircularProgressIndicator(
+                            color: AppColors.primaryYellow,
+                            strokeWidth: 3,
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                        const Text(
+                          'MedGemma is initializing...',
+                          style: AppTextStyles.titleMedium,
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          chatState.isProjectorLoading
+                              ? 'Loading the selected model and vision projector'
+                              : 'Setting up the locally loaded model',
+                          style: AppTextStyles.bodyMedium.copyWith(
+                            color: AppColors.textSecondary,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              else if (!chatState.isModelLoaded)
+                Expanded(
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.smart_toy_outlined,
+                          size: 64,
+                          color: AppColors.textSecondary,
+                        ),
+                        const SizedBox(height: 16),
+                        const Text(
+                          'No model is currently loaded.',
+                          style: AppTextStyles.titleMedium,
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          'Please load a model to start a consultation.',
+                          style: AppTextStyles.bodyMedium.copyWith(
+                            color: AppColors.textSecondary,
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                        FilledButton.icon(
+                          onPressed: () => context.push(AppRoutes.modelSetup),
+                          icon: const Icon(Icons.settings),
+                          label: const Text('Go to Model Setup'),
+                          style: FilledButton.styleFrom(
+                            backgroundColor: AppColors.primaryYellow,
+                            foregroundColor: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              else ...[
+                Expanded(
+                  child: ChatMessageList(
+                    chatState: chatState,
+                    scrollController: _scrollController,
+                    cursorAnimation: _cursorController,
+                  ),
+                ),
+                const ChatInputArea(),
+              ],
             ],
           ),
         ),

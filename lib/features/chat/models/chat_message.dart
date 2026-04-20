@@ -10,6 +10,7 @@ abstract class ChatMessage with _$ChatMessage {
     required bool isUser,
     required DateTime timestamp,
     @Default(false) bool isStreaming,
+    String? imagePath,
   }) = _ChatMessage;
 
   factory ChatMessage.fromJson(Map<String, dynamic> json) =>

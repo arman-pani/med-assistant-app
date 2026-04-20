@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:medgemma_local/features/settings/providers/model_catalog_provider.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_dimensions.dart';
 import '../../../core/theme/app_text_styles.dart';
@@ -133,7 +134,7 @@ class _AvailableModelCardState extends ConsumerState<AvailableModelCard> {
                 label: const Text('Cancel'),
               ),
             ),
-          ] else if (dl.isDownloaded)
+          ] else if (dl.isDownloaded) ...[
             const Padding(
               padding: EdgeInsets.only(top: 12),
               child: Align(
@@ -143,8 +144,10 @@ class _AvailableModelCardState extends ConsumerState<AvailableModelCard> {
                   style: TextStyle(color: AppColors.success, fontSize: 13),
                 ),
               ),
-            )
-          else ...[
+            ),
+            if (widget.model.projectorFileName != null)
+              _ProjectorDownloadSection(model: widget.model),
+          ] else ...[
             const SizedBox(height: 12),
             SizedBox(
               width: double.infinity,
@@ -159,6 +162,121 @@ class _AvailableModelCardState extends ConsumerState<AvailableModelCard> {
           ],
         ],
       ),
+    );
+  }
+}
+
+class _ProjectorDownloadSection extends ConsumerWidget {
+  final RecommendedModel model;
+  const _ProjectorDownloadSection({required this.model});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final dl = ref.watch(downloadProvider(model.id));
+    final catalogState = ref.watch(modelCatalogProvider);
+    final localEntry = catalogState.localModels.firstWhere(
+      (m) => m.catalogId == model.id,
+      orElse: () =>
+          const LocalModelEntry(path: '', displayName: '', catalogId: ''),
+    );
+    final isProjectorDownloaded =
+        localEntry.path.isNotEmpty && localEntry.hasProjector;
+    final colorScheme = Theme.of(context).colorScheme;
+
+    if (isProjectorDownloaded) return const SizedBox.shrink();
+
+    return Column(
+      children: [
+        const SizedBox(height: 12),
+        Container(
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: AppColors.backgroundElevated.withOpacity(0.5),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Row(
+                children: [
+                  Icon(
+                    Icons.visibility_outlined,
+                    size: 14,
+                    color: AppColors.primaryYellow,
+                  ),
+                  SizedBox(width: 6),
+                  Text(
+                    'Vision Projector (mmproj)',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 4),
+              const Text(
+                'Required for image analysis. 624 MB.',
+                style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
+              ),
+              const SizedBox(height: 8),
+              if (dl.isDownloadingProjector) ...[
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(4),
+                  child: LinearProgressIndicator(
+                    value: dl.projectorProgress,
+                    minHeight: 4,
+                    backgroundColor: AppColors.backgroundDark,
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      colorScheme.primary,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      dl.projectorProgressLabel,
+                      style: const TextStyle(
+                        fontSize: 11,
+                        fontFamily: 'monospace',
+                      ),
+                    ),
+                    Text(
+                      dl.projectorRemainingLabel,
+                      style: const TextStyle(
+                        fontSize: 11,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () => ref
+                        .read(downloadProvider(model.id).notifier)
+                        .cancelDownload(model),
+                    child: const Text('Cancel', style: TextStyle(fontSize: 12)),
+                  ),
+                ),
+              ] else
+                SizedBox(
+                  width: double.infinity,
+                  child: OutlinedButton.icon(
+                    onPressed: () => ref
+                        .read(downloadProvider(model.id).notifier)
+                        .startProjectorDownload(model),
+                    icon: const Icon(Icons.download_rounded, size: 18),
+                    label: const Text('Download Projector (624 MB)'),
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

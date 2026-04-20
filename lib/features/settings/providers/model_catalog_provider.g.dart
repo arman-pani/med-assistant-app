@@ -42,7 +42,7 @@ final class ModelCatalogNotifierProvider
 }
 
 String _$modelCatalogNotifierHash() =>
-    r'c2d6a72403564f03232b41d6a3f6d1aec492d612';
+    r'bed0002f34a704cf9c592580490f094304627cb5';
 
 abstract class _$ModelCatalogNotifier extends $Notifier<ModelCatalogState> {
   ModelCatalogState build();

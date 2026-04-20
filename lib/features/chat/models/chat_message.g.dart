@@ -11,6 +11,7 @@ _ChatMessage _$ChatMessageFromJson(Map<String, dynamic> json) => _ChatMessage(
   isUser: json['isUser'] as bool,
   timestamp: DateTime.parse(json['timestamp'] as String),
   isStreaming: json['isStreaming'] as bool? ?? false,
+  imagePath: json['imagePath'] as String?,
 );
 
 Map<String, dynamic> _$ChatMessageToJson(_ChatMessage instance) =>
@@ -19,4 +20,5 @@ Map<String, dynamic> _$ChatMessageToJson(_ChatMessage instance) =>
       'isUser': instance.isUser,
       'timestamp': instance.timestamp.toIso8601String(),
       'isStreaming': instance.isStreaming,
+      'imagePath': instance.imagePath,
     };

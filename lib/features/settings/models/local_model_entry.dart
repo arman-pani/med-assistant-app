@@ -15,6 +15,8 @@ abstract class LocalModelEntry with _$LocalModelEntry {
     String? fileSizeLabel,
     String? badge,
     @Default(false) bool isCustom,
+    @Default(false) bool hasProjector,
+    String? projectorPath,
   }) = _LocalModelEntry;
 
   factory LocalModelEntry.fromJson(Map<String, dynamic> json) =>

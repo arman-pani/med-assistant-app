@@ -68,5 +68,13 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>Used to capture images for medical analysis</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Used for voice clinical notes</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Used to select medical images for analysis</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Used to transcribe clinical notes</string>
 </dict>
 </plist>

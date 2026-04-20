@@ -1,6 +1,6 @@
 import 'dart:io';
+import 'package:medgemma_local/core/services/model_manager.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import '../../../core/models/recommended_model.dart';
 import '../../../core/services/model_download_service.dart';
 import '../../../core/services/model_persistence_service.dart';
 import '../../chat/providers/chat_provider.dart';
@@ -38,6 +38,10 @@ class ModelCatalogNotifier extends _$ModelCatalogNotifier {
             catalogId: model.id,
             fileSizeLabel: model.fileSizeLabel,
             badge: model.badge,
+            hasProjector: downloadService.isProjectorDownloaded(model),
+            projectorPath: downloadService.isProjectorDownloaded(model)
+                ? downloadService.projectorLocalPath(model)
+                : null,
           ),
         );
       }
@@ -58,21 +62,33 @@ class ModelCatalogNotifier extends _$ModelCatalogNotifier {
       await persistService.clearLoadedModel();
     }
 
-    state = state.copyWith(localModels: local, loadedModelPath: loadedPath);
+    state = state.copyWith(
+      localModels: local,
+      loadedModelPath: loadedPath,
+      isBootstrapping: true,
+    );
 
     if (loadedPath != null) {
-      await _loadIntoEngine(
-        path: loadedPath,
-        displayName: persisted.loadedModelName ?? loadedPath.split('/').last,
-        persist: false,
-      );
+      try {
+        await _loadIntoEngine(
+          path: loadedPath,
+          displayName: persisted.loadedModelName ?? loadedPath.split('/').last,
+          persist: false,
+        );
+      } finally {
+        state = state.copyWith(isBootstrapping: false);
+      }
+      return;
     }
+
+    state = state.copyWith(isBootstrapping: false);
   }
 
   Future<void> loadModel({
     required String path,
     required String displayName,
   }) async {
+    state = state.copyWith(isUserInitiatedLoad: true);
     await _loadIntoEngine(path: path, displayName: displayName, persist: true);
   }
 
@@ -81,17 +97,40 @@ class ModelCatalogNotifier extends _$ModelCatalogNotifier {
     required String displayName,
     required bool persist,
   }) async {
+    final entry = state.localModels.firstWhere(
+      (m) => m.path == path,
+      orElse: () =>
+          const LocalModelEntry(path: '', displayName: '', catalogId: ''),
+    );
+    final shouldLoadProjector =
+        entry.path.isNotEmpty &&
+        entry.hasProjector &&
+        entry.projectorPath != null;
+
     state = state.copyWith(
       isLoadingModel: true,
       loadingModelPath: path,
       errorMessage: null,
     );
     try {
-      await ref.read(chatProvider.notifier).loadModelPath(path);
+      await ref
+          .read(chatProvider.notifier)
+          .loadModelPath(
+            path,
+            completeOnSuccess: !shouldLoadProjector,
+            expectProjector: shouldLoadProjector,
+          );
+
+      if (shouldLoadProjector) {
+        await ModelManager().loadProjector(entry.projectorPath!);
+        ref.read(chatProvider.notifier).markModelReady(visionReady: true);
+      }
+
       state = state.copyWith(
         loadedModelPath: path,
         isLoadingModel: false,
         loadingModelPath: null,
+        isBootstrapping: false,
       );
       if (persist) {
         final persistService = await ref.read(
@@ -100,9 +139,14 @@ class ModelCatalogNotifier extends _$ModelCatalogNotifier {
         await persistService.setLoadedModel(path, displayName);
       }
     } catch (e) {
+      ref
+          .read(chatProvider.notifier)
+          .failModelLoad('Failed to load model: ${e.toString()}');
       state = state.copyWith(
+        loadedModelPath: null,
         isLoadingModel: false,
         loadingModelPath: null,
+        isBootstrapping: false,
         errorMessage: 'Failed to load model: ${e.toString()}',
       );
     }
@@ -142,11 +186,30 @@ class ModelCatalogNotifier extends _$ModelCatalogNotifier {
       catalogId: model.id,
       fileSizeLabel: model.fileSizeLabel,
       badge: model.badge,
+      hasProjector: downloadService.isProjectorDownloaded(model),
+      projectorPath: downloadService.isProjectorDownloaded(model)
+          ? downloadService.projectorLocalPath(model)
+          : null,
     );
 
     final isAlreadyPresent = state.localModels.any((m) => m.path == entry.path);
     if (!isAlreadyPresent) {
       state = state.copyWith(localModels: [...state.localModels, entry]);
+    } else {
+      // Update existing entry with projector info if it was just downloaded
+      state = state.copyWith(
+        localModels: state.localModels.map((m) {
+          if (m.path == entry.path) {
+            return entry;
+          }
+          return m;
+        }).toList(),
+      );
+
+      // If this model is currently loaded, refresh vision support
+      if (state.isLoaded(entry.path)) {
+        await ref.read(chatProvider.notifier).refreshVisionSupport();
+      }
     }
   }
 

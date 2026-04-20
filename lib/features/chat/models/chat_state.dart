@@ -9,8 +9,12 @@ abstract class ChatState with _$ChatState {
   const factory ChatState({
     @Default([]) List<ChatMessage> messages,
     @Default(false) bool isModelLoaded,
+    @Default(false) bool isModelLoading,
+    @Default(false) bool isProjectorLoading,
     @Default(false) bool isGenerating,
     String? errorMessage,
+    String? pendingImagePath,
+    @Default(false) bool visionSupported,
   }) = _ChatState;
 
   factory ChatState.fromJson(Map<String, dynamic> json) =>

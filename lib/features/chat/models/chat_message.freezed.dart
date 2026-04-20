@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ChatMessage {
 
- String get text; bool get isUser; DateTime get timestamp; bool get isStreaming;
+ String get text; bool get isUser; DateTime get timestamp; bool get isStreaming; String? get imagePath;
 /// Create a copy of ChatMessage
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $ChatMessageCopyWith<ChatMessage> get copyWith => _$ChatMessageCopyWithImpl<Chat
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ChatMessage&&(identical(other.text, text) || other.text == text)&&(identical(other.isUser, isUser) || other.isUser == isUser)&&(identical(other.timestamp, timestamp) || other.timestamp == timestamp)&&(identical(other.isStreaming, isStreaming) || other.isStreaming == isStreaming));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ChatMessage&&(identical(other.text, text) || other.text == text)&&(identical(other.isUser, isUser) || other.isUser == isUser)&&(identical(other.timestamp, timestamp) || other.timestamp == timestamp)&&(identical(other.isStreaming, isStreaming) || other.isStreaming == isStreaming)&&(identical(other.imagePath, imagePath) || other.imagePath == imagePath));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,text,isUser,timestamp,isStreaming);
+int get hashCode => Object.hash(runtimeType,text,isUser,timestamp,isStreaming,imagePath);
 
 @override
 String toString() {
-  return 'ChatMessage(text: $text, isUser: $isUser, timestamp: $timestamp, isStreaming: $isStreaming)';
+  return 'ChatMessage(text: $text, isUser: $isUser, timestamp: $timestamp, isStreaming: $isStreaming, imagePath: $imagePath)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $ChatMessageCopyWith<$Res>  {
   factory $ChatMessageCopyWith(ChatMessage value, $Res Function(ChatMessage) _then) = _$ChatMessageCopyWithImpl;
 @useResult
 $Res call({
- String text, bool isUser, DateTime timestamp, bool isStreaming
+ String text, bool isUser, DateTime timestamp, bool isStreaming, String? imagePath
 });
 
 
@@ -65,13 +65,14 @@ class _$ChatMessageCopyWithImpl<$Res>
 
 /// Create a copy of ChatMessage
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? text = null,Object? isUser = null,Object? timestamp = null,Object? isStreaming = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? text = null,Object? isUser = null,Object? timestamp = null,Object? isStreaming = null,Object? imagePath = freezed,}) {
   return _then(_self.copyWith(
 text: null == text ? _self.text : text // ignore: cast_nullable_to_non_nullable
 as String,isUser: null == isUser ? _self.isUser : isUser // ignore: cast_nullable_to_non_nullable
 as bool,timestamp: null == timestamp ? _self.timestamp : timestamp // ignore: cast_nullable_to_non_nullable
 as DateTime,isStreaming: null == isStreaming ? _self.isStreaming : isStreaming // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,imagePath: freezed == imagePath ? _self.imagePath : imagePath // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
@@ -156,10 +157,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String text,  bool isUser,  DateTime timestamp,  bool isStreaming)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String text,  bool isUser,  DateTime timestamp,  bool isStreaming,  String? imagePath)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ChatMessage() when $default != null:
-return $default(_that.text,_that.isUser,_that.timestamp,_that.isStreaming);case _:
+return $default(_that.text,_that.isUser,_that.timestamp,_that.isStreaming,_that.imagePath);case _:
   return orElse();
 
 }
@@ -177,10 +178,10 @@ return $default(_that.text,_that.isUser,_that.timestamp,_that.isStreaming);case 
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String text,  bool isUser,  DateTime timestamp,  bool isStreaming)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String text,  bool isUser,  DateTime timestamp,  bool isStreaming,  String? imagePath)  $default,) {final _that = this;
 switch (_that) {
 case _ChatMessage():
-return $default(_that.text,_that.isUser,_that.timestamp,_that.isStreaming);case _:
+return $default(_that.text,_that.isUser,_that.timestamp,_that.isStreaming,_that.imagePath);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -197,10 +198,10 @@ return $default(_that.text,_that.isUser,_that.timestamp,_that.isStreaming);case 
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String text,  bool isUser,  DateTime timestamp,  bool isStreaming)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String text,  bool isUser,  DateTime timestamp,  bool isStreaming,  String? imagePath)?  $default,) {final _that = this;
 switch (_that) {
 case _ChatMessage() when $default != null:
-return $default(_that.text,_that.isUser,_that.timestamp,_that.isStreaming);case _:
+return $default(_that.text,_that.isUser,_that.timestamp,_that.isStreaming,_that.imagePath);case _:
   return null;
 
 }
@@ -212,13 +213,14 @@ return $default(_that.text,_that.isUser,_that.timestamp,_that.isStreaming);case 
 @JsonSerializable()
 
 class _ChatMessage implements ChatMessage {
-  const _ChatMessage({required this.text, required this.isUser, required this.timestamp, this.isStreaming = false});
+  const _ChatMessage({required this.text, required this.isUser, required this.timestamp, this.isStreaming = false, this.imagePath});
   factory _ChatMessage.fromJson(Map<String, dynamic> json) => _$ChatMessageFromJson(json);
 
 @override final  String text;
 @override final  bool isUser;
 @override final  DateTime timestamp;
 @override@JsonKey() final  bool isStreaming;
+@override final  String? imagePath;
 
 /// Create a copy of ChatMessage
 /// with the given fields replaced by the non-null parameter values.
@@ -233,16 +235,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ChatMessage&&(identical(other.text, text) || other.text == text)&&(identical(other.isUser, isUser) || other.isUser == isUser)&&(identical(other.timestamp, timestamp) || other.timestamp == timestamp)&&(identical(other.isStreaming, isStreaming) || other.isStreaming == isStreaming));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ChatMessage&&(identical(other.text, text) || other.text == text)&&(identical(other.isUser, isUser) || other.isUser == isUser)&&(identical(other.timestamp, timestamp) || other.timestamp == timestamp)&&(identical(other.isStreaming, isStreaming) || other.isStreaming == isStreaming)&&(identical(other.imagePath, imagePath) || other.imagePath == imagePath));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,text,isUser,timestamp,isStreaming);
+int get hashCode => Object.hash(runtimeType,text,isUser,timestamp,isStreaming,imagePath);
 
 @override
 String toString() {
-  return 'ChatMessage(text: $text, isUser: $isUser, timestamp: $timestamp, isStreaming: $isStreaming)';
+  return 'ChatMessage(text: $text, isUser: $isUser, timestamp: $timestamp, isStreaming: $isStreaming, imagePath: $imagePath)';
 }
 
 
@@ -253,7 +255,7 @@ abstract mixin class _$ChatMessageCopyWith<$Res> implements $ChatMessageCopyWith
   factory _$ChatMessageCopyWith(_ChatMessage value, $Res Function(_ChatMessage) _then) = __$ChatMessageCopyWithImpl;
 @override @useResult
 $Res call({
- String text, bool isUser, DateTime timestamp, bool isStreaming
+ String text, bool isUser, DateTime timestamp, bool isStreaming, String? imagePath
 });
 
 
@@ -270,13 +272,14 @@ class __$ChatMessageCopyWithImpl<$Res>
 
 /// Create a copy of ChatMessage
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? text = null,Object? isUser = null,Object? timestamp = null,Object? isStreaming = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? text = null,Object? isUser = null,Object? timestamp = null,Object? isStreaming = null,Object? imagePath = freezed,}) {
   return _then(_ChatMessage(
 text: null == text ? _self.text : text // ignore: cast_nullable_to_non_nullable
 as String,isUser: null == isUser ? _self.isUser : isUser // ignore: cast_nullable_to_non_nullable
 as bool,timestamp: null == timestamp ? _self.timestamp : timestamp // ignore: cast_nullable_to_non_nullable
 as DateTime,isStreaming: null == isStreaming ? _self.isStreaming : isStreaming // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,imagePath: freezed == imagePath ? _self.imagePath : imagePath // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 

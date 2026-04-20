@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$RecommendedModel {
 
- String get id; String get displayName; String get description; String get badge; String get fileSizeLabel; int get fileSizeBytes; String get downloadUrl; String get fileName; String get ramRequirement;
+ String get id; String get displayName; String get description; String get badge; String get fileSizeLabel; int get fileSizeBytes; String get downloadUrl; String get fileName; String get ramRequirement; String? get projectorDownloadUrl; String? get projectorFileName; String? get projectorSizeLabel; int get projectorSizeBytes;
 /// Create a copy of RecommendedModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $RecommendedModelCopyWith<RecommendedModel> get copyWith => _$RecommendedModelCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RecommendedModel&&(identical(other.id, id) || other.id == id)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.description, description) || other.description == description)&&(identical(other.badge, badge) || other.badge == badge)&&(identical(other.fileSizeLabel, fileSizeLabel) || other.fileSizeLabel == fileSizeLabel)&&(identical(other.fileSizeBytes, fileSizeBytes) || other.fileSizeBytes == fileSizeBytes)&&(identical(other.downloadUrl, downloadUrl) || other.downloadUrl == downloadUrl)&&(identical(other.fileName, fileName) || other.fileName == fileName)&&(identical(other.ramRequirement, ramRequirement) || other.ramRequirement == ramRequirement));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RecommendedModel&&(identical(other.id, id) || other.id == id)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.description, description) || other.description == description)&&(identical(other.badge, badge) || other.badge == badge)&&(identical(other.fileSizeLabel, fileSizeLabel) || other.fileSizeLabel == fileSizeLabel)&&(identical(other.fileSizeBytes, fileSizeBytes) || other.fileSizeBytes == fileSizeBytes)&&(identical(other.downloadUrl, downloadUrl) || other.downloadUrl == downloadUrl)&&(identical(other.fileName, fileName) || other.fileName == fileName)&&(identical(other.ramRequirement, ramRequirement) || other.ramRequirement == ramRequirement)&&(identical(other.projectorDownloadUrl, projectorDownloadUrl) || other.projectorDownloadUrl == projectorDownloadUrl)&&(identical(other.projectorFileName, projectorFileName) || other.projectorFileName == projectorFileName)&&(identical(other.projectorSizeLabel, projectorSizeLabel) || other.projectorSizeLabel == projectorSizeLabel)&&(identical(other.projectorSizeBytes, projectorSizeBytes) || other.projectorSizeBytes == projectorSizeBytes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,displayName,description,badge,fileSizeLabel,fileSizeBytes,downloadUrl,fileName,ramRequirement);
+int get hashCode => Object.hash(runtimeType,id,displayName,description,badge,fileSizeLabel,fileSizeBytes,downloadUrl,fileName,ramRequirement,projectorDownloadUrl,projectorFileName,projectorSizeLabel,projectorSizeBytes);
 
 @override
 String toString() {
-  return 'RecommendedModel(id: $id, displayName: $displayName, description: $description, badge: $badge, fileSizeLabel: $fileSizeLabel, fileSizeBytes: $fileSizeBytes, downloadUrl: $downloadUrl, fileName: $fileName, ramRequirement: $ramRequirement)';
+  return 'RecommendedModel(id: $id, displayName: $displayName, description: $description, badge: $badge, fileSizeLabel: $fileSizeLabel, fileSizeBytes: $fileSizeBytes, downloadUrl: $downloadUrl, fileName: $fileName, ramRequirement: $ramRequirement, projectorDownloadUrl: $projectorDownloadUrl, projectorFileName: $projectorFileName, projectorSizeLabel: $projectorSizeLabel, projectorSizeBytes: $projectorSizeBytes)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $RecommendedModelCopyWith<$Res>  {
   factory $RecommendedModelCopyWith(RecommendedModel value, $Res Function(RecommendedModel) _then) = _$RecommendedModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String displayName, String description, String badge, String fileSizeLabel, int fileSizeBytes, String downloadUrl, String fileName, String ramRequirement
+ String id, String displayName, String description, String badge, String fileSizeLabel, int fileSizeBytes, String downloadUrl, String fileName, String ramRequirement, String? projectorDownloadUrl, String? projectorFileName, String? projectorSizeLabel, int projectorSizeBytes
 });
 
 
@@ -65,7 +65,7 @@ class _$RecommendedModelCopyWithImpl<$Res>
 
 /// Create a copy of RecommendedModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? displayName = null,Object? description = null,Object? badge = null,Object? fileSizeLabel = null,Object? fileSizeBytes = null,Object? downloadUrl = null,Object? fileName = null,Object? ramRequirement = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? displayName = null,Object? description = null,Object? badge = null,Object? fileSizeLabel = null,Object? fileSizeBytes = null,Object? downloadUrl = null,Object? fileName = null,Object? ramRequirement = null,Object? projectorDownloadUrl = freezed,Object? projectorFileName = freezed,Object? projectorSizeLabel = freezed,Object? projectorSizeBytes = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,displayName: null == displayName ? _self.displayName : displayName // ignore: cast_nullable_to_non_nullable
@@ -76,7 +76,11 @@ as String,fileSizeBytes: null == fileSizeBytes ? _self.fileSizeBytes : fileSizeB
 as int,downloadUrl: null == downloadUrl ? _self.downloadUrl : downloadUrl // ignore: cast_nullable_to_non_nullable
 as String,fileName: null == fileName ? _self.fileName : fileName // ignore: cast_nullable_to_non_nullable
 as String,ramRequirement: null == ramRequirement ? _self.ramRequirement : ramRequirement // ignore: cast_nullable_to_non_nullable
-as String,
+as String,projectorDownloadUrl: freezed == projectorDownloadUrl ? _self.projectorDownloadUrl : projectorDownloadUrl // ignore: cast_nullable_to_non_nullable
+as String?,projectorFileName: freezed == projectorFileName ? _self.projectorFileName : projectorFileName // ignore: cast_nullable_to_non_nullable
+as String?,projectorSizeLabel: freezed == projectorSizeLabel ? _self.projectorSizeLabel : projectorSizeLabel // ignore: cast_nullable_to_non_nullable
+as String?,projectorSizeBytes: null == projectorSizeBytes ? _self.projectorSizeBytes : projectorSizeBytes // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 
@@ -161,10 +165,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String displayName,  String description,  String badge,  String fileSizeLabel,  int fileSizeBytes,  String downloadUrl,  String fileName,  String ramRequirement)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String displayName,  String description,  String badge,  String fileSizeLabel,  int fileSizeBytes,  String downloadUrl,  String fileName,  String ramRequirement,  String? projectorDownloadUrl,  String? projectorFileName,  String? projectorSizeLabel,  int projectorSizeBytes)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _RecommendedModel() when $default != null:
-return $default(_that.id,_that.displayName,_that.description,_that.badge,_that.fileSizeLabel,_that.fileSizeBytes,_that.downloadUrl,_that.fileName,_that.ramRequirement);case _:
+return $default(_that.id,_that.displayName,_that.description,_that.badge,_that.fileSizeLabel,_that.fileSizeBytes,_that.downloadUrl,_that.fileName,_that.ramRequirement,_that.projectorDownloadUrl,_that.projectorFileName,_that.projectorSizeLabel,_that.projectorSizeBytes);case _:
   return orElse();
 
 }
@@ -182,10 +186,10 @@ return $default(_that.id,_that.displayName,_that.description,_that.badge,_that.f
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String displayName,  String description,  String badge,  String fileSizeLabel,  int fileSizeBytes,  String downloadUrl,  String fileName,  String ramRequirement)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String displayName,  String description,  String badge,  String fileSizeLabel,  int fileSizeBytes,  String downloadUrl,  String fileName,  String ramRequirement,  String? projectorDownloadUrl,  String? projectorFileName,  String? projectorSizeLabel,  int projectorSizeBytes)  $default,) {final _that = this;
 switch (_that) {
 case _RecommendedModel():
-return $default(_that.id,_that.displayName,_that.description,_that.badge,_that.fileSizeLabel,_that.fileSizeBytes,_that.downloadUrl,_that.fileName,_that.ramRequirement);case _:
+return $default(_that.id,_that.displayName,_that.description,_that.badge,_that.fileSizeLabel,_that.fileSizeBytes,_that.downloadUrl,_that.fileName,_that.ramRequirement,_that.projectorDownloadUrl,_that.projectorFileName,_that.projectorSizeLabel,_that.projectorSizeBytes);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -202,10 +206,10 @@ return $default(_that.id,_that.displayName,_that.description,_that.badge,_that.f
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String displayName,  String description,  String badge,  String fileSizeLabel,  int fileSizeBytes,  String downloadUrl,  String fileName,  String ramRequirement)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String displayName,  String description,  String badge,  String fileSizeLabel,  int fileSizeBytes,  String downloadUrl,  String fileName,  String ramRequirement,  String? projectorDownloadUrl,  String? projectorFileName,  String? projectorSizeLabel,  int projectorSizeBytes)?  $default,) {final _that = this;
 switch (_that) {
 case _RecommendedModel() when $default != null:
-return $default(_that.id,_that.displayName,_that.description,_that.badge,_that.fileSizeLabel,_that.fileSizeBytes,_that.downloadUrl,_that.fileName,_that.ramRequirement);case _:
+return $default(_that.id,_that.displayName,_that.description,_that.badge,_that.fileSizeLabel,_that.fileSizeBytes,_that.downloadUrl,_that.fileName,_that.ramRequirement,_that.projectorDownloadUrl,_that.projectorFileName,_that.projectorSizeLabel,_that.projectorSizeBytes);case _:
   return null;
 
 }
@@ -217,7 +221,7 @@ return $default(_that.id,_that.displayName,_that.description,_that.badge,_that.f
 @JsonSerializable()
 
 class _RecommendedModel implements RecommendedModel {
-  const _RecommendedModel({required this.id, required this.displayName, required this.description, required this.badge, required this.fileSizeLabel, required this.fileSizeBytes, required this.downloadUrl, required this.fileName, required this.ramRequirement});
+  const _RecommendedModel({required this.id, required this.displayName, required this.description, required this.badge, required this.fileSizeLabel, required this.fileSizeBytes, required this.downloadUrl, required this.fileName, required this.ramRequirement, this.projectorDownloadUrl, this.projectorFileName, this.projectorSizeLabel, this.projectorSizeBytes = 0});
   factory _RecommendedModel.fromJson(Map<String, dynamic> json) => _$RecommendedModelFromJson(json);
 
 @override final  String id;
@@ -229,6 +233,10 @@ class _RecommendedModel implements RecommendedModel {
 @override final  String downloadUrl;
 @override final  String fileName;
 @override final  String ramRequirement;
+@override final  String? projectorDownloadUrl;
+@override final  String? projectorFileName;
+@override final  String? projectorSizeLabel;
+@override@JsonKey() final  int projectorSizeBytes;
 
 /// Create a copy of RecommendedModel
 /// with the given fields replaced by the non-null parameter values.
@@ -243,16 +251,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecommendedModel&&(identical(other.id, id) || other.id == id)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.description, description) || other.description == description)&&(identical(other.badge, badge) || other.badge == badge)&&(identical(other.fileSizeLabel, fileSizeLabel) || other.fileSizeLabel == fileSizeLabel)&&(identical(other.fileSizeBytes, fileSizeBytes) || other.fileSizeBytes == fileSizeBytes)&&(identical(other.downloadUrl, downloadUrl) || other.downloadUrl == downloadUrl)&&(identical(other.fileName, fileName) || other.fileName == fileName)&&(identical(other.ramRequirement, ramRequirement) || other.ramRequirement == ramRequirement));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecommendedModel&&(identical(other.id, id) || other.id == id)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.description, description) || other.description == description)&&(identical(other.badge, badge) || other.badge == badge)&&(identical(other.fileSizeLabel, fileSizeLabel) || other.fileSizeLabel == fileSizeLabel)&&(identical(other.fileSizeBytes, fileSizeBytes) || other.fileSizeBytes == fileSizeBytes)&&(identical(other.downloadUrl, downloadUrl) || other.downloadUrl == downloadUrl)&&(identical(other.fileName, fileName) || other.fileName == fileName)&&(identical(other.ramRequirement, ramRequirement) || other.ramRequirement == ramRequirement)&&(identical(other.projectorDownloadUrl, projectorDownloadUrl) || other.projectorDownloadUrl == projectorDownloadUrl)&&(identical(other.projectorFileName, projectorFileName) || other.projectorFileName == projectorFileName)&&(identical(other.projectorSizeLabel, projectorSizeLabel) || other.projectorSizeLabel == projectorSizeLabel)&&(identical(other.projectorSizeBytes, projectorSizeBytes) || other.projectorSizeBytes == projectorSizeBytes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,displayName,description,badge,fileSizeLabel,fileSizeBytes,downloadUrl,fileName,ramRequirement);
+int get hashCode => Object.hash(runtimeType,id,displayName,description,badge,fileSizeLabel,fileSizeBytes,downloadUrl,fileName,ramRequirement,projectorDownloadUrl,projectorFileName,projectorSizeLabel,projectorSizeBytes);
 
 @override
 String toString() {
-  return 'RecommendedModel(id: $id, displayName: $displayName, description: $description, badge: $badge, fileSizeLabel: $fileSizeLabel, fileSizeBytes: $fileSizeBytes, downloadUrl: $downloadUrl, fileName: $fileName, ramRequirement: $ramRequirement)';
+  return 'RecommendedModel(id: $id, displayName: $displayName, description: $description, badge: $badge, fileSizeLabel: $fileSizeLabel, fileSizeBytes: $fileSizeBytes, downloadUrl: $downloadUrl, fileName: $fileName, ramRequirement: $ramRequirement, projectorDownloadUrl: $projectorDownloadUrl, projectorFileName: $projectorFileName, projectorSizeLabel: $projectorSizeLabel, projectorSizeBytes: $projectorSizeBytes)';
 }
 
 
@@ -263,7 +271,7 @@ abstract mixin class _$RecommendedModelCopyWith<$Res> implements $RecommendedMod
   factory _$RecommendedModelCopyWith(_RecommendedModel value, $Res Function(_RecommendedModel) _then) = __$RecommendedModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String displayName, String description, String badge, String fileSizeLabel, int fileSizeBytes, String downloadUrl, String fileName, String ramRequirement
+ String id, String displayName, String description, String badge, String fileSizeLabel, int fileSizeBytes, String downloadUrl, String fileName, String ramRequirement, String? projectorDownloadUrl, String? projectorFileName, String? projectorSizeLabel, int projectorSizeBytes
 });
 
 
@@ -280,7 +288,7 @@ class __$RecommendedModelCopyWithImpl<$Res>
 
 /// Create a copy of RecommendedModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? displayName = null,Object? description = null,Object? badge = null,Object? fileSizeLabel = null,Object? fileSizeBytes = null,Object? downloadUrl = null,Object? fileName = null,Object? ramRequirement = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? displayName = null,Object? description = null,Object? badge = null,Object? fileSizeLabel = null,Object? fileSizeBytes = null,Object? downloadUrl = null,Object? fileName = null,Object? ramRequirement = null,Object? projectorDownloadUrl = freezed,Object? projectorFileName = freezed,Object? projectorSizeLabel = freezed,Object? projectorSizeBytes = null,}) {
   return _then(_RecommendedModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,displayName: null == displayName ? _self.displayName : displayName // ignore: cast_nullable_to_non_nullable
@@ -291,7 +299,11 @@ as String,fileSizeBytes: null == fileSizeBytes ? _self.fileSizeBytes : fileSizeB
 as int,downloadUrl: null == downloadUrl ? _self.downloadUrl : downloadUrl // ignore: cast_nullable_to_non_nullable
 as String,fileName: null == fileName ? _self.fileName : fileName // ignore: cast_nullable_to_non_nullable
 as String,ramRequirement: null == ramRequirement ? _self.ramRequirement : ramRequirement // ignore: cast_nullable_to_non_nullable
-as String,
+as String,projectorDownloadUrl: freezed == projectorDownloadUrl ? _self.projectorDownloadUrl : projectorDownloadUrl // ignore: cast_nullable_to_non_nullable
+as String?,projectorFileName: freezed == projectorFileName ? _self.projectorFileName : projectorFileName // ignore: cast_nullable_to_non_nullable
+as String?,projectorSizeLabel: freezed == projectorSizeLabel ? _self.projectorSizeLabel : projectorSizeLabel // ignore: cast_nullable_to_non_nullable
+as String?,projectorSizeBytes: null == projectorSizeBytes ? _self.projectorSizeBytes : projectorSizeBytes // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 

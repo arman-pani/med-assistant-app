@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$LocalModelEntry {
 
- String get path; String get displayName; String? get catalogId; String? get fileSizeLabel; String? get badge; bool get isCustom;
+ String get path; String get displayName; String? get catalogId; String? get fileSizeLabel; String? get badge; bool get isCustom; bool get hasProjector; String? get projectorPath;
 /// Create a copy of LocalModelEntry
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $LocalModelEntryCopyWith<LocalModelEntry> get copyWith => _$LocalModelEntryCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LocalModelEntry&&(identical(other.path, path) || other.path == path)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.catalogId, catalogId) || other.catalogId == catalogId)&&(identical(other.fileSizeLabel, fileSizeLabel) || other.fileSizeLabel == fileSizeLabel)&&(identical(other.badge, badge) || other.badge == badge)&&(identical(other.isCustom, isCustom) || other.isCustom == isCustom));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LocalModelEntry&&(identical(other.path, path) || other.path == path)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.catalogId, catalogId) || other.catalogId == catalogId)&&(identical(other.fileSizeLabel, fileSizeLabel) || other.fileSizeLabel == fileSizeLabel)&&(identical(other.badge, badge) || other.badge == badge)&&(identical(other.isCustom, isCustom) || other.isCustom == isCustom)&&(identical(other.hasProjector, hasProjector) || other.hasProjector == hasProjector)&&(identical(other.projectorPath, projectorPath) || other.projectorPath == projectorPath));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,path,displayName,catalogId,fileSizeLabel,badge,isCustom);
+int get hashCode => Object.hash(runtimeType,path,displayName,catalogId,fileSizeLabel,badge,isCustom,hasProjector,projectorPath);
 
 @override
 String toString() {
-  return 'LocalModelEntry(path: $path, displayName: $displayName, catalogId: $catalogId, fileSizeLabel: $fileSizeLabel, badge: $badge, isCustom: $isCustom)';
+  return 'LocalModelEntry(path: $path, displayName: $displayName, catalogId: $catalogId, fileSizeLabel: $fileSizeLabel, badge: $badge, isCustom: $isCustom, hasProjector: $hasProjector, projectorPath: $projectorPath)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $LocalModelEntryCopyWith<$Res>  {
   factory $LocalModelEntryCopyWith(LocalModelEntry value, $Res Function(LocalModelEntry) _then) = _$LocalModelEntryCopyWithImpl;
 @useResult
 $Res call({
- String path, String displayName, String? catalogId, String? fileSizeLabel, String? badge, bool isCustom
+ String path, String displayName, String? catalogId, String? fileSizeLabel, String? badge, bool isCustom, bool hasProjector, String? projectorPath
 });
 
 
@@ -65,7 +65,7 @@ class _$LocalModelEntryCopyWithImpl<$Res>
 
 /// Create a copy of LocalModelEntry
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? path = null,Object? displayName = null,Object? catalogId = freezed,Object? fileSizeLabel = freezed,Object? badge = freezed,Object? isCustom = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? path = null,Object? displayName = null,Object? catalogId = freezed,Object? fileSizeLabel = freezed,Object? badge = freezed,Object? isCustom = null,Object? hasProjector = null,Object? projectorPath = freezed,}) {
   return _then(_self.copyWith(
 path: null == path ? _self.path : path // ignore: cast_nullable_to_non_nullable
 as String,displayName: null == displayName ? _self.displayName : displayName // ignore: cast_nullable_to_non_nullable
@@ -73,7 +73,9 @@ as String,catalogId: freezed == catalogId ? _self.catalogId : catalogId // ignor
 as String?,fileSizeLabel: freezed == fileSizeLabel ? _self.fileSizeLabel : fileSizeLabel // ignore: cast_nullable_to_non_nullable
 as String?,badge: freezed == badge ? _self.badge : badge // ignore: cast_nullable_to_non_nullable
 as String?,isCustom: null == isCustom ? _self.isCustom : isCustom // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,hasProjector: null == hasProjector ? _self.hasProjector : hasProjector // ignore: cast_nullable_to_non_nullable
+as bool,projectorPath: freezed == projectorPath ? _self.projectorPath : projectorPath // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
@@ -158,10 +160,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String path,  String displayName,  String? catalogId,  String? fileSizeLabel,  String? badge,  bool isCustom)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String path,  String displayName,  String? catalogId,  String? fileSizeLabel,  String? badge,  bool isCustom,  bool hasProjector,  String? projectorPath)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _LocalModelEntry() when $default != null:
-return $default(_that.path,_that.displayName,_that.catalogId,_that.fileSizeLabel,_that.badge,_that.isCustom);case _:
+return $default(_that.path,_that.displayName,_that.catalogId,_that.fileSizeLabel,_that.badge,_that.isCustom,_that.hasProjector,_that.projectorPath);case _:
   return orElse();
 
 }
@@ -179,10 +181,10 @@ return $default(_that.path,_that.displayName,_that.catalogId,_that.fileSizeLabel
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String path,  String displayName,  String? catalogId,  String? fileSizeLabel,  String? badge,  bool isCustom)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String path,  String displayName,  String? catalogId,  String? fileSizeLabel,  String? badge,  bool isCustom,  bool hasProjector,  String? projectorPath)  $default,) {final _that = this;
 switch (_that) {
 case _LocalModelEntry():
-return $default(_that.path,_that.displayName,_that.catalogId,_that.fileSizeLabel,_that.badge,_that.isCustom);case _:
+return $default(_that.path,_that.displayName,_that.catalogId,_that.fileSizeLabel,_that.badge,_that.isCustom,_that.hasProjector,_that.projectorPath);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -199,10 +201,10 @@ return $default(_that.path,_that.displayName,_that.catalogId,_that.fileSizeLabel
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String path,  String displayName,  String? catalogId,  String? fileSizeLabel,  String? badge,  bool isCustom)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String path,  String displayName,  String? catalogId,  String? fileSizeLabel,  String? badge,  bool isCustom,  bool hasProjector,  String? projectorPath)?  $default,) {final _that = this;
 switch (_that) {
 case _LocalModelEntry() when $default != null:
-return $default(_that.path,_that.displayName,_that.catalogId,_that.fileSizeLabel,_that.badge,_that.isCustom);case _:
+return $default(_that.path,_that.displayName,_that.catalogId,_that.fileSizeLabel,_that.badge,_that.isCustom,_that.hasProjector,_that.projectorPath);case _:
   return null;
 
 }
@@ -214,7 +216,7 @@ return $default(_that.path,_that.displayName,_that.catalogId,_that.fileSizeLabel
 @JsonSerializable()
 
 class _LocalModelEntry extends LocalModelEntry {
-  const _LocalModelEntry({required this.path, required this.displayName, this.catalogId, this.fileSizeLabel, this.badge, this.isCustom = false}): super._();
+  const _LocalModelEntry({required this.path, required this.displayName, this.catalogId, this.fileSizeLabel, this.badge, this.isCustom = false, this.hasProjector = false, this.projectorPath}): super._();
   factory _LocalModelEntry.fromJson(Map<String, dynamic> json) => _$LocalModelEntryFromJson(json);
 
 @override final  String path;
@@ -223,6 +225,8 @@ class _LocalModelEntry extends LocalModelEntry {
 @override final  String? fileSizeLabel;
 @override final  String? badge;
 @override@JsonKey() final  bool isCustom;
+@override@JsonKey() final  bool hasProjector;
+@override final  String? projectorPath;
 
 /// Create a copy of LocalModelEntry
 /// with the given fields replaced by the non-null parameter values.
@@ -237,16 +241,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LocalModelEntry&&(identical(other.path, path) || other.path == path)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.catalogId, catalogId) || other.catalogId == catalogId)&&(identical(other.fileSizeLabel, fileSizeLabel) || other.fileSizeLabel == fileSizeLabel)&&(identical(other.badge, badge) || other.badge == badge)&&(identical(other.isCustom, isCustom) || other.isCustom == isCustom));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LocalModelEntry&&(identical(other.path, path) || other.path == path)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.catalogId, catalogId) || other.catalogId == catalogId)&&(identical(other.fileSizeLabel, fileSizeLabel) || other.fileSizeLabel == fileSizeLabel)&&(identical(other.badge, badge) || other.badge == badge)&&(identical(other.isCustom, isCustom) || other.isCustom == isCustom)&&(identical(other.hasProjector, hasProjector) || other.hasProjector == hasProjector)&&(identical(other.projectorPath, projectorPath) || other.projectorPath == projectorPath));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,path,displayName,catalogId,fileSizeLabel,badge,isCustom);
+int get hashCode => Object.hash(runtimeType,path,displayName,catalogId,fileSizeLabel,badge,isCustom,hasProjector,projectorPath);
 
 @override
 String toString() {
-  return 'LocalModelEntry(path: $path, displayName: $displayName, catalogId: $catalogId, fileSizeLabel: $fileSizeLabel, badge: $badge, isCustom: $isCustom)';
+  return 'LocalModelEntry(path: $path, displayName: $displayName, catalogId: $catalogId, fileSizeLabel: $fileSizeLabel, badge: $badge, isCustom: $isCustom, hasProjector: $hasProjector, projectorPath: $projectorPath)';
 }
 
 
@@ -257,7 +261,7 @@ abstract mixin class _$LocalModelEntryCopyWith<$Res> implements $LocalModelEntry
   factory _$LocalModelEntryCopyWith(_LocalModelEntry value, $Res Function(_LocalModelEntry) _then) = __$LocalModelEntryCopyWithImpl;
 @override @useResult
 $Res call({
- String path, String displayName, String? catalogId, String? fileSizeLabel, String? badge, bool isCustom
+ String path, String displayName, String? catalogId, String? fileSizeLabel, String? badge, bool isCustom, bool hasProjector, String? projectorPath
 });
 
 
@@ -274,7 +278,7 @@ class __$LocalModelEntryCopyWithImpl<$Res>
 
 /// Create a copy of LocalModelEntry
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? path = null,Object? displayName = null,Object? catalogId = freezed,Object? fileSizeLabel = freezed,Object? badge = freezed,Object? isCustom = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? path = null,Object? displayName = null,Object? catalogId = freezed,Object? fileSizeLabel = freezed,Object? badge = freezed,Object? isCustom = null,Object? hasProjector = null,Object? projectorPath = freezed,}) {
   return _then(_LocalModelEntry(
 path: null == path ? _self.path : path // ignore: cast_nullable_to_non_nullable
 as String,displayName: null == displayName ? _self.displayName : displayName // ignore: cast_nullable_to_non_nullable
@@ -282,7 +286,9 @@ as String,catalogId: freezed == catalogId ? _self.catalogId : catalogId // ignor
 as String?,fileSizeLabel: freezed == fileSizeLabel ? _self.fileSizeLabel : fileSizeLabel // ignore: cast_nullable_to_non_nullable
 as String?,badge: freezed == badge ? _self.badge : badge // ignore: cast_nullable_to_non_nullable
 as String?,isCustom: null == isCustom ? _self.isCustom : isCustom // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,hasProjector: null == hasProjector ? _self.hasProjector : hasProjector // ignore: cast_nullable_to_non_nullable
+as bool,projectorPath: freezed == projectorPath ? _self.projectorPath : projectorPath // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 

@@ -49,4 +49,4 @@ final class ModelPersistenceServiceProvider
 }
 
 String _$modelPersistenceServiceHash() =>
-    r'22b2b74925129d20a4de48864b1d13fee32de9b2';
+    r'b567869e2f364ba5c183749ce34ac228c1e64057';
